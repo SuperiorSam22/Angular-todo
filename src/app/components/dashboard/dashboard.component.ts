@@ -12,7 +12,9 @@ export class DashboardComponent implements OnInit {
   taskObj: Task = new Task();
   taskArr: Task[] = [];
 
-  addTskValue : string = '';
+  addTaskValue : string = '';
+
+  editTaskValue: string = '';
 
 
   constructor(
@@ -20,6 +22,8 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.editTaskValue = '';
+    this.addTaskValue = '';
     this.taskObj = new Task();
     this.taskArr = [];
     this.getAllTask();
@@ -33,15 +37,23 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  addTask(etask: Task){
-    this.crudService.addTask(etask).subscribe(res => {
-      this.ngOnInit();
-    }, err => {
-      alert(err);
-    })
+  addTask(){
+
+    if(this.addTaskValue.trim() != ''){
+        this.taskObj.task_name = this.addTaskValue;
+        this.crudService.addTask(this.taskObj).subscribe(res => {
+        this.ngOnInit();
+        this.addTaskValue = '';
+        }, err => {
+         alert(err);
+      })
+    }
+
+    
   }
 
   editTask(){
+    this.taskObj.task_name = this.editTaskValue;
     this.crudService.editTask(this.taskObj).subscribe(res => {
       this.ngOnInit();
     }, err =>{
@@ -55,6 +67,11 @@ export class DashboardComponent implements OnInit {
     }, err => {
       alert("Failed to delete Task")
     })
+  }
+
+  call(etask: Task){
+    this.taskObj = etask;
+    this.editTaskValue = etask.task_name;
   }
 
 }
