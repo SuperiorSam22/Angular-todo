@@ -11,17 +11,17 @@
 
                 <div class="shadow">
                     <div class="input-group p-4">
-                        <input type="text" class="form-control" placeholder="Enter task">
-                        <button class="btn btn-outline-success" type="button" >+</button>
+                        <input type="text" class="form-control" placeholder="Enter task" name="task" [(ngModel)]="addTskValue">
+                        <button class="btn btn-outline-success" type="button" (click)="addTask()" >+</button>
                       </div>
                 </div>
 
                 <h4 class="text-primary mt-4">Tasks : </h4>
                 <div class="overflow">
-                    <div class="m-3">
+                    <div class="m-3" *ngFor="let task of taskArr">
                         <div class="p-2 shadow"> 
                             <div class="input-group row ps-3">
-                                <div class="card col-md-10 border-0 "> Something something  </div>
+                                <div class="card col-md-10 border-0 "> {{task.task_name}}  </div>
                                 <button class="btn btn-outline-primary col me-2">E</button>
                                 <button class="btn btn-outline-danger col">X</button>
                             </div>

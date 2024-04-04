@@ -33,9 +33,11 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  addTask(etask: Task){
-    this.crudService.addTask(etask).subscribe(res => {
+  addTask(){
+    this.taskObj.task_name = this.addTskValue;
+    this.crudService.addTask(this.taskObj).subscribe(res => {
       this.ngOnInit();
+      this.addTskValue = '';
     }, err => {
       alert(err);
     })
